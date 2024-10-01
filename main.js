@@ -53,20 +53,27 @@ document.getElementById('notifyBtn').addEventListener('click', function() {
     sendNotification(subscription);
 });
 function sendNotification(subscription) {
-    fetch('https://shy-pale-cerise.glitch.me/sendNotification', {
-        method: 'POST',
-        body: JSON.stringify(subscription),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(function(response) {
-        if (!response.ok) {
-            throw new Error('Netwerkresponse was niet OK');
-        }
-        return response.json();
-    }).then(function(data) {
-        console.log('Melding verzonden:', data);
-    }).catch(function(error) {
-        console.error('Fout bij het verzenden van de melding:', error);
-    });
+    const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+const raw = JSON.stringify({
+  "endpoint": "https://fcm.googleapis.com/fcm/send/cINT5917OJI:APA91bHzyP-pH4aj8QJ7Y5CXhWeBDjzQ8uIkfJgeP8KrxD8VRcrWYx_zAPcyuevCb3phqtF6Ry3CWfEEEX0XyaorvkicSrL-p_Xv3rCIebckL1O7c2kXo16-kFWbbpCZTJY2wuxjlNus",
+  "expirationTime": null,
+  "keys": {
+    "p256dh": "BK7b8WuxaiNpmFkZRLJ5MGSEbHDMRDDtVpX54uuWSLs_fi3rLGaauFJjdlnx8lxaBeGaHL3yY1_Yayxrui3eouw",
+    "auth": "ujnjdqOZzyQT_PuV9jYLVA"
+  }
+});
+
+const requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow"
+};
+
+fetch("https://shy-pale-cerise.glitch.me/sendNotification", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
 }
