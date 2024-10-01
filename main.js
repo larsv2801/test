@@ -49,9 +49,6 @@ function urlB64ToUint8Array(base64String) {
     const rawData = window.atob(base64);
     return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
 }
-document.getElementById('notifyBtn').addEventListener('click', function() {
-    sendNotification(subscription);
-});
 function sendNotification(subscription) {
     const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
