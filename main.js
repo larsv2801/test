@@ -19,7 +19,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 function subscribeUserToPush(registration) {
     registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlB64ToUint8Array('<YOUR_PUBLIC_VAPID_KEY>')
+        applicationServerKey: urlB64ToUint8Array('BDgfFyCQr6OsGzwUI2rbSdrHfdkjJ2HKoudQITWebJgGQPgPhbjd0d6hk5ES08HeheVGXG_cnVZEUKIl7jrAyJA')
     }).then(function(subscription) {
         console.log('Gebruiker geabonneerd:', JSON.stringify(subscription));
         // Stuur de abonnementsgegevens naar je server om meldingen te kunnen verzenden
