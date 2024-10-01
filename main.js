@@ -49,3 +49,24 @@ function urlB64ToUint8Array(base64String) {
     const rawData = window.atob(base64);
     return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
 }
+document.getElementById('notifyBtn').addEventListener('click', function() {
+    sendNotification(subscription);
+});
+function sendNotification(subscription) {
+    fetch('https://shy-pale-cerise.glitch.me/sendNotification', {
+        method: 'POST',
+        body: JSON.stringify(subscription),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function(response) {
+        if (!response.ok) {
+            throw new Error('Netwerkresponse was niet OK');
+        }
+        return response.json();
+    }).then(function(data) {
+        console.log('Melding verzonden:', data);
+    }).catch(function(error) {
+        console.error('Fout bij het verzenden van de melding:', error);
+    });
+}
